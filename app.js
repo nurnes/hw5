@@ -76,11 +76,11 @@ class App {
             .querySelector('button.remove')
             .addEventListener('click', this.remove.bind(this, entry))
 
-        /*item
+        item
             .querySelector('button.fav')
             .addEventListener('click', this.fave.bind(this, entry))
 
-        item
+        /*item
             .querySelector('button.move-up')
             .addEventListener('click', this.moveUp.bind(this, entry))
 
@@ -168,11 +168,19 @@ class App {
         this.save()
     }
 
-    /*fave(flick, ev){
+    fave(entry, ev){
         const li = ev.target.closest('.entry')
         entry.fave = !entry.fave
         li.classList.toggle("fav")
-    }*/
+        if(li.classList.contains("fav")){
+            li.querySelector("button.fav > i").classList.remove("fa-star-o")
+            li.querySelector("button.fav > i").classList.add("fa-star")
+        }else{
+            li.querySelector("button.fav > i").classList.remove("fa-star")
+            li.querySelector("button.fav > i").classList.add("fa-star-o")
+        }
+        this.save()
+    }
 }
 
 const app = new App()
