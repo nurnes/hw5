@@ -80,11 +80,11 @@ class App {
             .querySelector('button.fav')
             .addEventListener('click', this.fave.bind(this, entry))
 
-        /*item
+        item
             .querySelector('button.move-up')
             .addEventListener('click', this.moveUp.bind(this, entry))
 
-        item
+        /*item
             .querySelector('button.move-down')
             .addEventListener('click', this.moveDown.bind(this, entry))*/
 
@@ -180,6 +180,26 @@ class App {
             li.querySelector("button.fav > i").classList.add("fa-star-o")
         }
         this.save()
+    }
+
+    moveUp(entry, ev){
+        const li = ev.target.closest('.entry')
+
+        const l = this.getL(entry)
+
+        const index = l.findIndex((curr, i) => {
+            return curr.id === entry.id
+        })
+
+        const list = this.getList(entry)
+
+        if(index > 0){
+            list.insertBefore(li, li.previousElementSibling)
+            const prev = l[index-1]
+            l[index-1] = entry
+            l[index] = prev
+            this.save()
+        }
     }
 }
 

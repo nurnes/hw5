@@ -41,3 +41,13 @@ button {
 .fav {
   background-color: goldenrod;
 }
+
+.entry:first-child button.move-up{
+  background-color: #ddd;
+  color: #eee;
+  cursor: not-allowed;
+}
+
+.entry:first-child button.move-up:focus{
+  outline: 0;
+}
