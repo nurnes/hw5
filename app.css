@@ -51,3 +51,13 @@ button {
 .entry:first-child button.move-up:focus{
   outline: 0;
 }
+
+.entry:last-child button.move-down{
+  background-color: #ddd;
+  color: #eee;
+  cursor: not-allowed;
+}
+
+.entry:last-child button.move-down:focus{
+  outline: 0;
+}

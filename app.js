@@ -84,9 +84,9 @@ class App {
             .querySelector('button.move-up')
             .addEventListener('click', this.moveUp.bind(this, entry))
 
-        /*item
+        item
             .querySelector('button.move-down')
-            .addEventListener('click', this.moveDown.bind(this, entry))*/
+            .addEventListener('click', this.moveDown.bind(this, entry))
 
         item
             .querySelector('button.edit')
@@ -198,6 +198,26 @@ class App {
             const prev = l[index-1]
             l[index-1] = entry
             l[index] = prev
+            this.save()
+        }
+    }
+
+    moveDown(entry, ev){
+        const li = ev.target.closest('.entry')
+
+        const l = this.getL(entry)
+
+        const index = l.findIndex((curr, i) => {
+            return curr.id === entry.id
+        })
+
+        const list = this.getList(entry)
+
+        if(index < l.length-1){
+            list.insertBefore(li.nextElementSibling, li)
+            const next = l[index+1]
+            l[index+1] = entry
+            l[index] = next
             this.save()
         }
     }
