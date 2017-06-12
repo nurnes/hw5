@@ -25,6 +25,15 @@ button {
     width: 44px;
 }
 
+button.search-button {
+  width: 50px;
+  height: 2.4375rem;
+}
+
+select {
+  height: 2.5rem;
+}
+
 .template {
   display: none;
 }
@@ -60,4 +69,18 @@ button {
 
 .entry:last-child button.move-down:focus{
   outline: 0;
+}
+.clear-search {
+  height: 2.4375rem !important;
+  width: 50px;
+  position: relative;
+  left: 43px;
+}
+
+.hidden{
+  display: none !important;
+}
+
+ul {
+  border: 10px;
 }

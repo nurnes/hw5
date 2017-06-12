@@ -9,6 +9,8 @@ class App {
         this.list3 = document.querySelector('#list3')
         this.template = document.querySelector(".template")
         document.querySelector('#entry-form').addEventListener('submit', this.addEntry.bind(this))
+        document.querySelector('#search-form').addEventListener('submit', this.search.bind(this))
+        document.querySelector('.button.clear-search').addEventListener('click', this.clearSearch.bind(this))
         this.load()
         this.max = JSON.parse(localStorage.getItem("max"))
         document.querySelector(".button.clear").addEventListener("click", function() {
@@ -227,6 +229,40 @@ class App {
             l[index] = next
             this.save()
         }
+    }
+
+    search(ev){
+        ev.preventDefault()
+        const search = ev.target.search.value
+        const match1 = this.l1.filter(this.locate.bind(this, search))
+        const match2 = this.l2.filter(this.locate.bind(this, search))
+        const match3 = this.l3.filter(this.locate.bind(this, search))
+        this.hide(match1, this.l1)
+        this.hide(match2, this.l2)
+        this.hide(match3, this.l3)
+        document.querySelector(".clear-search").classList.remove("hidden")
+        ev.target.reset()
+    }
+
+    locate(search, entry){
+        return entry.text.includes(search)
+    }
+
+    hide(matches, l){
+        l.forEach(function(element) {
+            if(!matches.includes(element)){
+                const li = document.querySelector(`li[data-id="${element.id}"]`).closest('.entry')
+                li.classList.add("hidden")
+            }
+        }, this);
+    }
+
+    clearSearch(ev){
+        ev.preventDefault()
+        document.querySelectorAll(".entry").forEach(function(element){
+            element.classList.remove("hidden")
+        })
+        ev.target.closest(".clear-search").classList.add("hidden")
     }
 }
 

@@ -16,7 +16,7 @@
     <body>
         <div class="row">
             <div class ="medium-8 column" >
-                <h1>A</h1>
+                <h1>My Progress</h1>
                 <form id="entry-form">
                     <div class="input-group">
                         <input
@@ -34,13 +34,28 @@
                             <option value="Explore">What I will explore</option>
                         </select>
                         <div class="input-group-button">
-                        <button 
-                            class="success button input-button"
-                            type="submit"
-                        >
-                            Submit
-                        </button>
-                        <button class="button alert clear input-button">Clear</button>
+                            <button 
+                                class="success button input-button"
+                                type="submit"
+                            >
+                                Submit
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <button class="button alert clear input-button">Clear All</button>
+                <form id="search-form">
+                    <div class="input-group">
+                        <input type="text" name="search" placeholder="Search" required>
+                        <div class="input-group-button">
+                            <button class="button search-button" type="submit">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </div>
+                        <div class="input-group-button">
+                            <button class="button clear-search alert hidden">
+                                <i class="fa fa-times-circle-o"></i>
+                            </button>
                         </div>
                     </div>
                 </form>
