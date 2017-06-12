@@ -11,6 +11,13 @@ class App {
         document.querySelector('#entry-form').addEventListener('submit', this.addEntry.bind(this))
         this.load()
         this.max = JSON.parse(localStorage.getItem("max"))
+        document.querySelector(".button.clear").addEventListener("click", function() {
+            localStorage.removeItem("l1")
+            localStorage.removeItem("l2")
+            localStorage.removeItem("l3")
+            localStorage.removeItem("max")
+            location.reload()
+        })
     }
 
     save(){
