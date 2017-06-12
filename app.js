@@ -1,5 +1,6 @@
 class App {
     constructor(){
+        this.max = 0
         this.l1 = []
         this.l2 = []
         this.l3 = []
@@ -50,9 +51,10 @@ class App {
         const li = this.renderListItem(entry)
         const list = this.getList(entry)
         list.insertBefore(li, list.firstChild)
-        ++ this.max
-        const l = this.getList(entry)
-        this.l1.unshift(entry)
+        if (entry.id > this.max) {
+            this.max = entry.id
+        }
+        this.getL(entry).unshift(entry)
         this.save()
         localStorage.setItem("max", JSON.stringify(this.max))
     }
@@ -70,13 +72,13 @@ class App {
         item
             .querySelector('.text')
             .addEventListener('keypress', this.saveOnEnter.bind(this, entry))
-        /*item
-            .querySelector('button.remove')
-            .addEventListener('click', this.removeentry.bind(this))
-
         item
+            .querySelector('button.remove')
+            .addEventListener('click', this.remove.bind(this, entry))
+
+        /*item
             .querySelector('button.fav')
-            .addEventListener('click', this.faventry.bind(this, entry))
+            .addEventListener('click', this.fave.bind(this, entry))
 
         item
             .querySelector('button.move-up')
@@ -84,11 +86,11 @@ class App {
 
         item
             .querySelector('button.move-down')
-            .addEventListener('click', this.moveDown.bind(this, entry))
+            .addEventListener('click', this.moveDown.bind(this, entry))*/
 
         item
             .querySelector('button.edit')
-            .addEventListener('click', this.edit.bind(this, entry))*/
+            .addEventListener('click', this.edit.bind(this, entry))
 
         if(entry.fave === true){
             item.classList.add("fav")
@@ -134,6 +136,43 @@ class App {
             this.edit(entry, ev)
         }
     }
+
+    edit(entry, ev){
+        const li = ev.target.closest(".entry")
+        const text = li.querySelector(".text")
+        const btn = li.querySelector(".edit.button")
+        const icon = btn.querySelector("i")
+        if(text.isContentEditable){
+            text.contentEditable = false;
+            icon.classList.remove("fa-check")
+            icon.classList.add("fa-pencil")
+            entry.text = text.textContent
+            this.save()
+        }else{
+            text.contentEditable = true;
+            text.focus()
+            icon.classList.remove("fa-pencil")
+            icon.classList.add("fa-check")
+        }
+    }
+
+    remove(entry, ev){
+        const li = ev.target.closest('.entry')
+        const index = this.getL(entry).findIndex((curr, i) => {
+            return curr.id === entry.id
+        })
+
+        this.getL(entry).splice(index, 1)
+
+        li.remove()
+        this.save()
+    }
+
+    /*fave(flick, ev){
+        const li = ev.target.closest('.entry')
+        entry.fave = !entry.fave
+        li.classList.toggle("fav")
+    }*/
 }
 
 const app = new App()
