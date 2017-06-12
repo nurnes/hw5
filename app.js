@@ -8,6 +8,29 @@ class App {
         this.list3 = document.querySelector('#list3')
         this.template = document.querySelector(".template")
         document.querySelector('#entry-form').addEventListener('submit', this.addEntry.bind(this))
+        this.load()
+        this.max = JSON.parse(localStorage.getItem("max"))
+    }
+
+    save(){
+        localStorage.setItem("l1", JSON.stringify(this.l1))
+        localStorage.setItem("l2", JSON.stringify(this.l2))
+        localStorage.setItem("l3", JSON.stringify(this.l3))
+    }
+
+    load(){
+        const l1 = JSON.parse(localStorage.getItem('l1'))
+        const l2 = JSON.parse(localStorage.getItem('l2'))
+        const l3 = JSON.parse(localStorage.getItem('l3'))
+        if(l1){
+            l1.reverse().map(this.insert.bind(this))
+        }
+        if(l2){
+            l2.reverse().map(this.insert.bind(this))
+        }
+        if(l3){
+            l3.reverse().map(this.insert.bind(this))
+        }
     }
 
     addEntry(ev){
@@ -27,6 +50,11 @@ class App {
         const li = this.renderListItem(entry)
         const list = this.getList(entry)
         list.insertBefore(li, list.firstChild)
+        ++ this.max
+        const l = this.getList(entry)
+        this.l1.unshift(entry)
+        this.save()
+        localStorage.setItem("max", JSON.stringify(this.max))
     }
 
     renderListItem(entry){
@@ -39,7 +67,7 @@ class App {
         item
             .querySelector('.text')
             .setAttribute("title", entry.text)
-        /*item
+        item
             .querySelector('.text')
             .addEventListener('keypress', this.saveOnEnter.bind(this, entry))
         /*item
@@ -84,6 +112,27 @@ class App {
             break
         }
         return list
+    }
+
+    getL(entry){
+        let list
+        switch (entry.category){
+            case "What": list = this.l1
+            break
+            case "How": list = this.l2
+            break
+            case "Explore": list = this.l3
+            break
+            default:
+            break
+        }
+        return list
+    }
+
+    saveOnEnter(entry, ev){
+        if(ev.key === 'Enter'){
+            this.edit(entry, ev)
+        }
     }
 }
 
